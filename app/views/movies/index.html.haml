@@ -1,19 +1,25 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
+= form_tag movies_path, id: "ratings_form", :method => :get do
+ Include:
+ -@all_ratings.each do |rating|
+  = rating
+  = check_box_tag "ratings[#{rating}]",1, @all_selected_ratings.include?(rating), {:id => "ratings_#{rating}"}
+ =submit_tag 'Refresh', :id => "ratings_submit"
 %table#movies
-  %thead
-    %tr
-      %th{:class =>@title_header, :id => "title_header"}= link_to "Movie Title", movies_path(:id => "title")
-      %th Rating
-      %th{:class =>@release_date_header, :id => "release_date_header"}= link_to "Release Date", movies_path(:id => "release_date")
-      %th More Info
+ %thead
+  %tr
+   %th{:class =>@title_header, :id => "title_header"}= link_to "Movie Title", movies_path(:sort => "title", :ratings => params[:ratings])
+   %th Rating
+   %th{:class =>@release_date_header, :id => "release_date_header"}= link_to "Release Date", movies_path(:sort => "release_date", :ratings => params[:ratings])
+   %th More Info
   %tbody
-    - @movies.each do |movie|
-      %tr
-        %td= movie.title 
-        %td= movie.rating
-        %td= movie.release_date
-        %td= link_to "More about #{movie.title}", movie_path(movie)
+ - @movies.each do |movie|
+  %tr
+  %td= movie.title 
+  %td= movie.rating
+  %td= movie.release_date
+  %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
