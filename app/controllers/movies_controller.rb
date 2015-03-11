@@ -21,19 +21,19 @@ class MoviesController < ApplicationController
 		end
 	
 		if params[:ratings]	
-			@all_selected_ratings = params[:ratings]
+			@ratings = params[:ratings]
 		elsif session[:ratings]
-			@all_selected_ratings = session[:ratings]
+			@ratings = session[:ratings]
 			reload = true
 		else
 	 @all_ratings.each do |r|
-			(@all_selected_ratings  ||= {})[r] = 1
+			(@ratings  ||= {})[r] = 1
 			end
 			reload = true	
 		end
 	
 	if reload
-		redirect_to movies_path(:sort =>@sort, :ratings => @all_selected_ratings)
+		redirect_to movies_path(:sort =>@sort, :ratings => @ratings)
 	end
 	
 	@movies = Movie.order(params[:sort])
@@ -46,7 +46,7 @@ class MoviesController < ApplicationController
 	end
 	
 	session[:sort] = @sort	
-  	session[:ratings] = @all_selected_ratings
+  	session[:ratings] = @ratings
 end
 
   def new
