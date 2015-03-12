@@ -8,7 +8,8 @@
   = check_box_tag "ratings[#{rating}]",1, @ratings.include?(rating), :id => "ratings_#{rating}"
  =submit_tag 'Refresh', {:id => "ratings_submit"}
 %table#movies 
- %thead 
+ %thead
+  %tbody 
   %tr
    %th{:class =>@title_header}
     = link_to "Movie Title", movies_path(:sort => "title", :ratings => params[:ratings]), :id => "title_header"
