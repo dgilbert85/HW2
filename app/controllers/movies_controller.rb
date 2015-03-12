@@ -38,6 +38,9 @@ class MoviesController < ApplicationController
 		redirect_to movies_path(:sort =>@sort, :ratings => @ratings)
 	end
 
+	session[:sort] = @sort	
+  	session[:ratings] = @ratings
+
 	@movie = Movie.order(params[:sort])
 	@movie = @movie.where(rating: params[:ratings].keys) if params[:ratings].present?
 
@@ -47,8 +50,7 @@ class MoviesController < ApplicationController
 		@release_date_header = 'hilite'
 	end
 	
-	session[:sort] = @sort	
-  	session[:ratings] = @ratings
+	
 end
 
   def new
