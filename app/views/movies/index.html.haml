@@ -15,7 +15,7 @@
    %th{:class =>@release_date_header}= link_to "Release Date", movies_path(:sort => "release_date", :ratings => params[:ratings]), :id => "release_date_header"
    %th More Info
   %tbody
- - @movies.each do |movie|
+ - @movie.each do |movie|
   %tr
   %td= movie.title 
   %td= movie.rating
