@@ -12,7 +12,10 @@ class MoviesController < ApplicationController
   def index
 	reload = false	
 	@all_ratings = ['G', 'PG', 'PG-13', 'R']
-		
+	@movies = Movie.order(params[:sort])
+	@movies = @movies.where(rating: params[:ratings].keys) if params[:ratings].present?	
+
+	
 		if params[:sort]	
 			@sort = params[:sort]
 		elsif session[:sort]
