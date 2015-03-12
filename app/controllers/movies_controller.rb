@@ -39,9 +39,6 @@ class MoviesController < ApplicationController
 		redirect_to movies_path(:sort =>@sort, :ratings => @ratings)
 	end
 
-	@movies = Movie.order(params[:sort])
-	@movies = @movies.where(rating: params[:ratings].keys) if params[:ratings].present?
-
 	if @sort == "title"
 		@title_header = 'hilite'
 	elsif @sort == "release_date"
